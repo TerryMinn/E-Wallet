@@ -13,7 +13,9 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    PoppinLight: require("../assets/fonts/Poppins-Light.ttf"),
+    PoppinRegular: require("../assets/fonts/Poppins-Regular.ttf"),
+    PoppinBold: require("../assets/fonts/Poppins-Bold.ttf"),
   });
 
   if (!loaded) {
