@@ -1,12 +1,106 @@
+import CButton from "@/components/ui/c-button";
+import CText from "@/components/ui/c-text";
+import Container from "@/components/ui/container";
+import Heading from "@/components/ui/heading";
+import { Colors } from "@/constants/Colors";
+import { Link } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function Login() {
   return (
-    <View>
-      <Text>Login</Text>
-    </View>
+    <ImageBackground
+      source={require("../../assets/images/photos/auth-bg.png")}
+      resizeMode="cover"
+      style={{ flex: 1 }}
+    >
+      <Container>
+        <View style={{ flex: 1 }}>
+          <View style={styles.centered}>
+            <Image source={require("../../assets/images/photos/qr.png")} />
+          </View>
+
+          <View style={{ flex: 1 }}>
+            <Heading style={[styles.heading]}>SIGN IN YOUR ACCOUNT</Heading>
+
+            <View style={styles.formContainer}>
+              <View style={{ gap: 5, marginBottom: 20 }}>
+                <CText style={{ fontSize: 14 }}>Email</CText>
+                <TextInput
+                  placeholder="Enter your email"
+                  style={{
+                    borderWidth: 1,
+                    borderColor: Colors.border,
+                    padding: 10,
+                    borderRadius: 8,
+                  }}
+                />
+              </View>
+
+              <View style={{ gap: 5, marginBottom: 20 }}>
+                <CText style={{ fontSize: 14 }}>Password</CText>
+                <TextInput
+                  placeholder="Enter your email"
+                  style={{
+                    borderWidth: 1,
+                    borderColor: Colors.border,
+                    padding: 10,
+                    borderRadius: 8,
+                  }}
+                />
+              </View>
+
+              <CButton>Log in</CButton>
+            </View>
+
+            <View style={styles.bottomContainer}>
+              <CText style={styles.footerText}>
+                Don't have an account?{" "}
+                <Link href={"/(auth)/register"} style={styles.link}>
+                  Sign up
+                </Link>
+              </CText>
+            </View>
+          </View>
+        </View>
+      </Container>
+    </ImageBackground>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  centered: {
+    alignItems: "center",
+  },
+  heading: {
+    textAlign: "center",
+    marginTop: 20,
+    color: Colors.primary,
+  },
+  formContainer: {
+    marginTop: 16,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 24,
+  },
+  bottomContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  footerText: {
+    textAlign: "center",
+    fontSize: 14,
+    color: "#A7A7A7",
+    marginTop: 20,
+  },
+  link: {
+    color: "#3048FF",
+    textDecorationLine: "underline",
+  },
+});
