@@ -15,6 +15,7 @@ type CButtonProps = {
   color?: string;
   style?: StyleProp<ViewStyle>;
   isLoading?: boolean;
+  disable?: boolean;
 };
 
 const CButton = ({
@@ -23,9 +24,18 @@ const CButton = ({
   onPress,
   style,
   isLoading,
+  disable,
 }: CButtonProps) => {
   return (
-    <Pressable style={[styles.button, style]} onPress={onPress}>
+    <Pressable
+      disabled={isLoading || disable}
+      style={[
+        styles.button,
+        style,
+        { backgroundColor: disable ? Colors.mute : Colors.primary },
+      ]}
+      onPress={onPress}
+    >
       {isLoading && <ActivityIndicator />}
       <Text style={[styles.text, { color: color }]}>{children}</Text>
     </Pressable>
@@ -39,7 +49,6 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 12,
     borderRadius: 10,
-    backgroundColor: Colors.primary,
     flexDirection: "row",
     justifyContent: "center",
     gap: 10,

@@ -15,7 +15,10 @@ export default function Register() {
   const [email, setEmail] = useState("");
 
   const handleNext = async () => {
-    router.push("/(auth)/profile-setup");
+    router.push({
+      pathname: "/(auth)/profile-setup",
+      params: { name, dateOfBirth, email, password },
+    });
   };
 
   return (

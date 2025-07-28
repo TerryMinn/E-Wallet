@@ -4,7 +4,7 @@ import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
 import StepHeader from "@/features/auth/components/step-header";
 import useImageUploader from "@/hooks/useImageUploader";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Camera } from "lucide-react-native";
 import React from "react";
 import {
@@ -16,6 +16,7 @@ import {
 } from "react-native";
 
 export default function ProfilSetup() {
+  const params = useLocalSearchParams();
   const { showImageSourcePrompt, image } = useImageUploader();
 
   return (
@@ -47,7 +48,10 @@ export default function ProfilSetup() {
 
           <CButton
             onPress={() => {
-              router.push("/(auth)/pin-setup");
+              router.push({
+                pathname: "/(auth)/pin-setup",
+                params: { ...params, image },
+              });
             }}
           >
             Next
