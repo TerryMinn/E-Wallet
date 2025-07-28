@@ -3,10 +3,25 @@ import CText from "@/components/ui/c-text";
 import Container from "@/components/ui/container";
 import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
-import React from "react";
+import StepHeader from "@/features/auth/components/step-header";
+import { authClient } from "@/lib/auth-client";
+import React, { useState } from "react";
 import { ImageBackground, StyleSheet, TextInput, View } from "react-native";
 
 export default function Register() {
+  const [password, setPassword] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleNext = async () => {
+    const { data, error } = await authClient.signUp.email({
+      email,
+      password,
+      name,
+    });
+  };
+
   return (
     <ImageBackground
       source={require("../../assets/images/photos/auth-bg.png")}
@@ -14,6 +29,7 @@ export default function Register() {
       style={{ flex: 1 }}
     >
       <Container style={styles.container}>
+        <StepHeader />
         <View style={styles.formWrapper}>
           <Heading style={styles.heading}>Tell us a bit about you</Heading>
           <View style={{ marginTop: 20 }}>
@@ -27,6 +43,9 @@ export default function Register() {
                   padding: 10,
                   borderRadius: 8,
                 }}
+                autoCapitalize="none"
+                value={name}
+                onChangeText={setName}
               />
             </View>
 
@@ -40,6 +59,8 @@ export default function Register() {
                   padding: 10,
                   borderRadius: 8,
                 }}
+                value={dateOfBirth}
+                onChangeText={setDateOfBirth}
               />
             </View>
 
@@ -53,6 +74,10 @@ export default function Register() {
                   padding: 10,
                   borderRadius: 8,
                 }}
+                keyboardType="email-address"
+                value={email}
+                onChangeText={setEmail}
+                autoCapitalize="none"
               />
             </View>
             <View style={{ gap: 5, marginBottom: 20 }}>
@@ -66,11 +91,13 @@ export default function Register() {
                   padding: 10,
                   borderRadius: 8,
                 }}
+                value={password}
+                onChangeText={setPassword}
               />
             </View>
           </View>
           <View style={styles.buttonWrapper}>
-            <CButton>Next</CButton>
+            <CButton onPress={handleNext}>Next</CButton>
           </View>
         </View>
       </Container>
@@ -81,7 +108,6 @@ export default function Register() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 0,
-    paddingTop: 30,
   },
   formWrapper: {
     flex: 1,

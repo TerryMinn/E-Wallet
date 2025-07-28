@@ -38,7 +38,6 @@ export default function Container({ children, style }: ContainerProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
   },
   scrollContainer: {
     flexGrow: 1,

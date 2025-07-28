@@ -3,8 +3,9 @@ import CText from "@/components/ui/c-text";
 import Container from "@/components/ui/container";
 import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
+import { authClient } from "@/lib/auth-client";
 import { Link } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   ImageBackground,
@@ -14,6 +15,20 @@ import {
 } from "react-native";
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    setLoading(true);
+    const { data, error } = await authClient.signIn.email({
+      email,
+      password,
+    });
+
+    setLoading(false);
+  };
+
   return (
     <ImageBackground
       source={require("../../assets/images/photos/auth-bg.png")}
@@ -53,16 +68,20 @@ export default function Login() {
                     padding: 10,
                     borderRadius: 8,
                   }}
+                  value={email}
+                  onChangeText={setEmail}
                 />
               </View>
 
-              <CButton>Log in</CButton>
+              <CButton isLoading={loading} onPress={handleLogin}>
+                Log in
+              </CButton>
             </View>
 
             <View style={styles.bottomContainer}>
               <CText style={styles.footerText}>
                 Don't have an account?{" "}
-                <Link href={"/(auth)/register"} style={styles.link}>
+                <Link href={"/(auth)/profile-setup"} style={styles.link}>
                   Sign up
                 </Link>
               </CText>
@@ -87,6 +106,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     backgroundColor: "#FFFFFF",
     borderRadius: 24,
+    padding: 16,
   },
   bottomContainer: {
     flex: 1,
