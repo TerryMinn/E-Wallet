@@ -1,4 +1,3 @@
-// app/api/profile/upload/+api.ts
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
@@ -10,6 +9,7 @@ cloudinary.config({
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
+
     const file = formData.getAll("file")[0];
 
     if (!file) {
@@ -24,9 +24,6 @@ export async function POST(request: Request) {
     const base64Image = Buffer.from(fileBuffer).toString("base64");
     const dataUri = `data:${file.type};base64,${base64Image}`;
 
-    console.log(dataUri);
-
-    // Upload to Cloudinary
     const result = await cloudinary.uploader.upload(dataUri, {
       folder: "profile",
     });

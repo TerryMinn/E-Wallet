@@ -81,7 +81,7 @@ export default function Login() {
             <View style={styles.bottomContainer}>
               <CText style={styles.footerText}>
                 Don't have an account?{" "}
-                <Link href={"/(auth)/profile-setup"} style={styles.link}>
+                <Link href={"/(auth)/register"} style={styles.link}>
                   Sign up
                 </Link>
               </CText>

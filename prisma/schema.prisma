@@ -14,12 +14,12 @@ model User {
   name          String
   email         String
   emailVerified Boolean
+  pin           Int
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-
   @@unique([email])
   @@map("user")
 }

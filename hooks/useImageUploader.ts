@@ -26,7 +26,7 @@ export default function useImageUploader() {
     });
 
     if (!result.canceled) {
-      uploadImage(result.assets[0].uri);
+      uploadImage(result.assets[0]);
     }
   };
 
@@ -50,21 +50,25 @@ export default function useImageUploader() {
     });
 
     if (!result.canceled) {
-      uploadImage(result.assets[0].uri);
+      uploadImage(result.assets[0]);
     }
   };
 
-  const uploadImage = async (uri: string) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    console.log(blob);
+  const uploadImage = async (asset: ImagePicker.ImagePickerAsset) => {
     const formData = new FormData();
-    formData.append("file", blob, `${Math.random()}.jpg`);
+    formData.append("file", {
+      uri: asset.uri,
+      name: asset.fileName ?? asset.uri.split("/").pop() ?? "image.jpg",
+      type: asset.mimeType ?? "image/jpeg",
+    } as any);
 
     try {
       const uploadResponse = await fetch("/api/profile/upload", {
         method: "POST",
         body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data", // Essential for FormData
+        },
       });
 
       const data = await uploadResponse.json();

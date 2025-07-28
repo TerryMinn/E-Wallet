@@ -4,7 +4,7 @@ import Container from "@/components/ui/container";
 import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
 import StepHeader from "@/features/auth/components/step-header";
-import { authClient } from "@/lib/auth-client";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { ImageBackground, StyleSheet, TextInput, View } from "react-native";
 
@@ -15,11 +15,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
 
   const handleNext = async () => {
-    const { data, error } = await authClient.signUp.email({
-      email,
-      password,
-      name,
-    });
+    router.push("/(auth)/profile-setup");
   };
 
   return (
