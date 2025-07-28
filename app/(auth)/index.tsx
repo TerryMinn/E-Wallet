@@ -13,7 +13,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import Toast from "react-native-toast-message";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -22,17 +21,10 @@ export default function Login() {
 
   const handleLogin = async () => {
     setLoading(true);
-    console.log(email, password);
     const { data, error } = await authClient.signIn.email({
       email,
       password,
     });
-
-    if (error) {
-      Toast.show({ type: "error", text1: error.code, text2: error.message });
-    }
-
-    console.log(data);
 
     setLoading(false);
   };
@@ -63,24 +55,21 @@ export default function Login() {
                     padding: 10,
                     borderRadius: 8,
                   }}
-                  value={email}
-                  onChangeText={setEmail}
-                  autoCapitalize="none"
                 />
               </View>
 
               <View style={{ gap: 5, marginBottom: 20 }}>
                 <CText style={{ fontSize: 14 }}>Password</CText>
                 <TextInput
-                  placeholder="Enter your password"
+                  placeholder="Enter your email"
                   style={{
                     borderWidth: 1,
                     borderColor: Colors.border,
                     padding: 10,
                     borderRadius: 8,
                   }}
-                  value={password}
-                  onChangeText={setPassword}
+                  value={email}
+                  onChangeText={setEmail}
                 />
               </View>
 

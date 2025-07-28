@@ -5,7 +5,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "../prisma/generated/client";
 
 interface CustomUser extends User {
-  pin: string;
+  pin?: string;
 }
 
 const prisma = new PrismaClient();
@@ -14,7 +14,7 @@ export const auth = betterAuth({
     additionalFields: {
       pin: {
         type: "string",
-        required: true,
+        required: false,
         input: true,
       },
     },
@@ -71,5 +71,3 @@ export const auth = betterAuth({
     },
   },
 });
-
-type Session = typeof auth.$Infer.Session;

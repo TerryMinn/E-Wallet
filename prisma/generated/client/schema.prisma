@@ -13,7 +13,7 @@ model User {
   name          String
   email         String
   emailVerified Boolean
-  pin           String
+  pin           Int
   image         String?
   createdAt     DateTime
   updatedAt     DateTime

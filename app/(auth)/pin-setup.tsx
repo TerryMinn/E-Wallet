@@ -3,32 +3,11 @@ import CText from "@/components/ui/c-text";
 import Container from "@/components/ui/container";
 import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
-import { authClient } from "@/lib/auth-client";
-import { router, useLocalSearchParams } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 
 export default function PinSetup() {
-  const [loading, setLoading] = useState(false);
-  const params = useLocalSearchParams();
-
-  const handleSignUp = async (pin: string) => {
-    setLoading(true);
-    const { email, password, name, image } = params;
-    if (!email || !password || !name || !image) {
-      return;
-    }
-
-    const { data, error } = await authClient.signUp.email({
-      email: email as string,
-      password: password as string,
-      name: name as string,
-      image: image as string,
-      pin: pin as string,
-    });
-  };
-
   return (
     <ImageBackground
       source={require("../../assets/images/photos/auth-bg.png")}
@@ -62,18 +41,12 @@ export default function PinSetup() {
               secureTextEntry={false}
               focusStickBlinkingDuration={500}
               onTextChange={(text) => console.log(text)}
-              onFilled={handleSignUp}
+              onFilled={(text) => console.log(`OTP is ${text}`)}
             />
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <CButton
-            onPress={() => {
-              router.push("/(home)");
-            }}
-          >
-            Continue
-          </CButton>
+          <CButton>Continue</CButton>
         </View>
       </Container>
     </ImageBackground>

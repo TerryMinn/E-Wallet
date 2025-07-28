@@ -62,17 +62,9 @@ const styles = StyleSheet.create({
   innerBox: {
     width: "75%",
     height: "75%",
-    backgroundColor: Colors.primary,
+    backgroundColor: "#3048FF",
     borderRadius: 9999,
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: Colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
 });
