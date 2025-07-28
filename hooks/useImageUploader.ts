@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Alert, Platform } from "react-native";
 
 export default function useImageUploader() {
+  const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState<string | null>(null);
 
   const pickImage = async () => {
@@ -55,6 +56,7 @@ export default function useImageUploader() {
   };
 
   const uploadImage = async (asset: ImagePicker.ImagePickerAsset) => {
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("file", {
       uri: asset.uri,
@@ -78,6 +80,8 @@ export default function useImageUploader() {
       }
     } catch (error) {
       console.error("Error uploading image:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -103,5 +107,5 @@ export default function useImageUploader() {
     );
   };
 
-  return { showImageSourcePrompt, image };
+  return { showImageSourcePrompt, image, isLoading };
 }

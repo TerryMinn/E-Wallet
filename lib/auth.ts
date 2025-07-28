@@ -14,7 +14,7 @@ export const auth = betterAuth({
     additionalFields: {
       pin: {
         type: "string",
-        required: false,
+        required: true,
         input: true,
       },
     },

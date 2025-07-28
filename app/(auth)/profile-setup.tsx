@@ -4,10 +4,11 @@ import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
 import StepHeader from "@/features/auth/components/step-header";
 import useImageUploader from "@/hooks/useImageUploader";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Camera } from "lucide-react-native";
 import React from "react";
 import {
+  ActivityIndicator,
   Image,
   ImageBackground,
   Pressable,
@@ -16,7 +17,9 @@ import {
 } from "react-native";
 
 export default function ProfilSetup() {
-  const { showImageSourcePrompt, image } = useImageUploader();
+  const params = useLocalSearchParams();
+
+  const { showImageSourcePrompt, image, isLoading } = useImageUploader();
 
   return (
     <ImageBackground
@@ -39,15 +42,24 @@ export default function ProfilSetup() {
                   image ? image : require("../../assets/images/photos/girl.png")
                 }
               />
-              <View style={styles.uploader}>
-                <Camera color={Colors.white} size={50} />
-              </View>
+              {isLoading ? (
+                <View style={styles.loadingOverlay}>
+                  <ActivityIndicator size="large" color={Colors.primary} />
+                </View>
+              ) : (
+                <View style={styles.uploader}>
+                  <Camera color={Colors.white} size={50} />
+                </View>
+              )}
             </View>
           </Pressable>
 
           <CButton
             onPress={() => {
-              router.push("/(auth)/pin-setup");
+              router.push({
+                pathname: "/(auth)/pin-setup",
+                params: { ...params, image },
+              });
             }}
           >
             Next
@@ -88,5 +100,12 @@ const styles = StyleSheet.create({
   },
   uploader: {
     position: "absolute",
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 150,
   },
 });

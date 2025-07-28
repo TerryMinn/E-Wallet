@@ -4,7 +4,7 @@ import Container from "@/components/ui/container";
 import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
 import { authClient } from "@/lib/auth-client";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
@@ -13,6 +13,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -21,10 +22,17 @@ export default function Login() {
 
   const handleLogin = async () => {
     setLoading(true);
-    const { data, error } = await authClient.signIn.email({
+    const { error } = await authClient.signIn.email({
       email,
       password,
     });
+
+    if (error) {
+      Toast.show({ type: "error", text1: error.code, text2: error.message });
+      return;
+    }
+
+    router.push("/(home)");
 
     setLoading(false);
   };
@@ -49,6 +57,8 @@ export default function Login() {
                 <CText style={{ fontSize: 14 }}>Email</CText>
                 <TextInput
                   placeholder="Enter your email"
+                  value={email}
+                  onChangeText={setEmail}
                   style={{
                     borderWidth: 1,
                     borderColor: Colors.border,
@@ -61,15 +71,15 @@ export default function Login() {
               <View style={{ gap: 5, marginBottom: 20 }}>
                 <CText style={{ fontSize: 14 }}>Password</CText>
                 <TextInput
-                  placeholder="Enter your email"
+                  placeholder="Enter your password"
                   style={{
                     borderWidth: 1,
                     borderColor: Colors.border,
                     padding: 10,
                     borderRadius: 8,
                   }}
-                  value={email}
-                  onChangeText={setEmail}
+                  value={password}
+                  onChangeText={setPassword}
                 />
               </View>
 
