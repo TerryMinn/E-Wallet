@@ -4,7 +4,7 @@ import { Alert, Platform } from "react-native";
 
 export default function useImageUploader() {
   const [isLoading, setIsLoading] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<{ url: string } | null>(null);
 
   const pickImage = async () => {
     if (Platform.OS !== "web") {

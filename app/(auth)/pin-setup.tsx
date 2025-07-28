@@ -4,43 +4,32 @@ import Container from "@/components/ui/container";
 import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
 import { authClient } from "@/lib/auth-client";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import Toast from "react-native-toast-message";
-
-type PayloadType = {
-  name: string;
-  email: string;
-  password: string;
-  image: string;
-  pin: string;
-};
 
 export default function PinSetup() {
   const params = useLocalSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const handleRegister = async (pin: string) => {
     setIsLoading(true);
-    const payload = {
-      name: params.name,
-      email: params.email,
-      password: params.password,
-      image: params.image,
-      pin,
-    } as PayloadType;
 
-    const { data, error } = await authClient.signUp.email({
-      ...payload,
+    console.log(params.image);
+
+    const { error } = await authClient.signUp.email({
+      name: params.name as string,
+      email: params.email as string,
+      password: params.password as string,
+      image: params.image as string,
+      pin,
     });
 
     if (error) {
       Toast.show({ type: "error", text1: error.code, text2: error.message });
       return;
     }
-
-    router.push("/(home)");
 
     setIsLoading(false);
   };

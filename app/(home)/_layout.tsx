@@ -12,6 +12,7 @@ export default function HomeRoot() {
         tabBarStyle: {
           paddingHorizontal: 50,
         },
+        animation: "shift",
       }}
     >
       <Tabs.Screen
@@ -62,9 +63,17 @@ const styles = StyleSheet.create({
   innerBox: {
     width: "75%",
     height: "75%",
-    backgroundColor: "#3048FF",
+    backgroundColor: Colors.primary,
     borderRadius: 9999,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: Colors.primary,
+    elevation: 5,
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.8,
   },
 });

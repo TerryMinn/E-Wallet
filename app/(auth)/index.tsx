@@ -4,7 +4,7 @@ import Container from "@/components/ui/container";
 import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
 import { authClient } from "@/lib/auth-client";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
@@ -32,8 +32,6 @@ export default function Login() {
       return;
     }
 
-    router.push("/(home)");
-
     setLoading(false);
   };
 
@@ -56,6 +54,7 @@ export default function Login() {
               <View style={{ gap: 5, marginBottom: 20 }}>
                 <CText style={{ fontSize: 14 }}>Email</CText>
                 <TextInput
+                  autoCapitalize="none"
                   placeholder="Enter your email"
                   value={email}
                   onChangeText={setEmail}
@@ -80,6 +79,7 @@ export default function Login() {
                   }}
                   value={password}
                   onChangeText={setPassword}
+                  secureTextEntry
                 />
               </View>
 

@@ -47,6 +47,22 @@ export const auth = betterAuth({
 
           return { data };
         },
+        after: async (user) => {
+          try {
+            await prisma.balance.create({
+              data: {
+                userId: user.id,
+                amount: 3000,
+              },
+            });
+            console.log(`Balance record created for user: ${user.id}`);
+          } catch (error) {
+            console.error(
+              `Failed to create balance record for user ${user.id}:`,
+              error
+            );
+          }
+        },
       },
       update: {
         before: async (data, ctx) => {

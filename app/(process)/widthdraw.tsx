@@ -2,14 +2,16 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Account() {
+const Widthdraw = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>Account</Text>
+        <Text>Widthdraw</Text>
       </View>
     </SafeAreaView>
   );
-}
+};
+
+export default Widthdraw;
 
 const styles = StyleSheet.create({});

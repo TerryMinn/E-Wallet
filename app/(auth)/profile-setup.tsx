@@ -58,7 +58,7 @@ export default function ProfilSetup() {
             onPress={() => {
               router.push({
                 pathname: "/(auth)/pin-setup",
-                params: { ...params, image },
+                params: { ...params, image: image?.url },
               });
             }}
           >
