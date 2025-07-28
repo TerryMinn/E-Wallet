@@ -4,6 +4,7 @@ import Heading from "@/components/ui/heading";
 import { Colors } from "@/constants/Colors";
 import StepHeader from "@/features/auth/components/step-header";
 import useImageUploader from "@/hooks/useImageUploader";
+import { router } from "expo-router";
 import { Camera } from "lucide-react-native";
 import React from "react";
 import {
@@ -44,7 +45,13 @@ export default function ProfilSetup() {
             </View>
           </Pressable>
 
-          <CButton>Next</CButton>
+          <CButton
+            onPress={() => {
+              router.push("/(auth)/pin-setup");
+            }}
+          >
+            Next
+          </CButton>
         </View>
       </Container>
     </ImageBackground>
